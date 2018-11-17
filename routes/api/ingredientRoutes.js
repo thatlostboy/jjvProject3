@@ -1,19 +1,16 @@
 const router = require("express").Router();
 const db = require("../../models");
 
-// get distinct list of ingredients
-// returns array of objects that has two keys
-//   type, typeImgUrl
-/*  
-router.get("/groups", (req, res) => {
-  console.log("API call to list of ingredient group")
+// get all ingredients
+router.get("/all", (req, res) => {
+  console.log("API call to get all ingredients")
   db.Ingredient
     .find()
-    .distinct('type')
     .then(ingredList => res.json(ingredList))
 });
-*/
 
+
+// get by group
 // https://stackoverflow.com/questions/11973725/how-to-efficiently-perform-distinct-with-multiple-keys
 router.get("/groups", (req, res) => {
   console.log("API call to list of ingredient group")
