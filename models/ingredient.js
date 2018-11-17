@@ -5,7 +5,8 @@ const ingredientSchema = new Schema({
   name: { type: String, required: true },
   type: { type: String, required: true },
   owner: { type: String, default: "system" },
-  imgURL: { type: String } ,
+  nameImgURL: { type: String } ,
+  typeImgURL: { type: String } ,
   date: { type: Date, default: Date.now }
 });
 

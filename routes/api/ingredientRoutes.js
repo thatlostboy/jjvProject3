@@ -1,17 +1,41 @@
 const router = require("express").Router();
-const axios = require("../../models")
+const db = require("../../models");
 
-// get ingredient group
+// get distinct list of ingredients
+// returns array of objects that has two keys
+//   type, typeImgUrl
+/*  
 router.get("/groups", (req, res) => {
-  console.log("this is group like vegetables, fruit, meat, fish")
-  res.json("vegetable, meat, fish, vegetable")
+  console.log("API call to list of ingredient group")
+  db.Ingredient
+    .find()
+    .distinct('type')
+    .then(ingredList => res.json(ingredList))
+});
+*/
+
+// https://stackoverflow.com/questions/11973725/how-to-efficiently-perform-distinct-with-multiple-keys
+router.get("/groups", (req, res) => {
+  console.log("API call to list of ingredient group")
+  db.Ingredient
+    .aggregate(
+      [ {"$group": {"_id":{ type: "$type", typeImgURL: "$typeImgURL"}}}]
+    )
+    .then(
+      ingredList => {
+        newList = ingredList.map(item => item["_id"])
+        return(res.json(newList))
+    })
 });
 
 
-// find receipe by ID
-router.get("/groups/:id", (req, res) => {
-  console.log("this is the specific ingredient like salmon, chicken breast")
-  res.json("beets, carrots, celery")
+// get ingredients by group
+router.get("/groups/:group", (req, res) => {
+  const group = req.params.group
+  console.log("API call to list of ingredients within group: ", group)
+  db.Ingredient
+    .find({type: group.toLowerCase()})
+    .then(ingredList => res.json(ingredList))
 });
 
 module.exports = router
