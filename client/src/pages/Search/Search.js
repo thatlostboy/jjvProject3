@@ -41,11 +41,11 @@ class Search extends Component {
             <div className="card-body">
               <div className="card-group">
                 {this.state.ingredGroup.map(group => {
-                  key = group.type
+
                   return (
                     <div className="card img-fluid">
                       <img className="card-img-top" src={group.typeImgURL} alt={group.type.toUpperCase()} />
-                      <div className="card-img-overlay">
+                      <div className="card-img-overlay"> 
                         <h4 className="card-text">{group.type.toUpperCase()}</h4>
                       </div>
                     </div>

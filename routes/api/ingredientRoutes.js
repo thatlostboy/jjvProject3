@@ -9,6 +9,16 @@ router.get("/all", (req, res) => {
     .then(ingredList => res.json(ingredList))
 });
 
+// get all ingredients group by
+router.get("/allgroups", (req, res) => {
+  console.log("API call to get all ingredients by groups")
+  db.Ingredient
+    .find()
+    .then(ingredList => {
+      return(res.json(ingredList))
+    })
+});
+
 
 // get by group
 // https://stackoverflow.com/questions/11973725/how-to-efficiently-perform-distinct-with-multiple-keys
